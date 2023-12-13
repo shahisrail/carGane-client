@@ -8,7 +8,7 @@ import useTitle from "../../hook/useTitle";
 
 const Login = () => {
   const [error, setError] = useState("");
-  const { userLogin } = useContext(AuthContext);
+  const { userLogin, googleUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -38,6 +38,19 @@ const Login = () => {
         setError("wrong email or password");
       });
   };
+   const handleGoogle = () => {
+     googleUser()
+       .then((result) => {
+         console.log(result.user);
+         toast("SignUp successful");
+         navigate("/");
+       })
+       .catch((error) => {
+         console.log(error);
+         toast("SignUp failed, please try again");
+       });
+   };
+
 
   return (
     <div className="lg:px-36 px-2 py-10 bg-base-200">
@@ -45,7 +58,7 @@ const Login = () => {
         <div className="mx-auto p-10">
           <Lottie className="object-cover" animationData={login} loop={true} />
         </div>
-        <div className="lg:w-[700px] w-full mx-auto">
+        <div className="lg:w-[700px] w-full  mx-auto">
           <form
             onSubmit={handleLogin}
             className="background-color p-10 mx-auto lg:p-20 rounded-lg shadow-2xl"
@@ -85,6 +98,13 @@ const Login = () => {
                 </Link>
               </h2>
             </div>
+            <button onClick={handleGoogle} className="mt-10 ml-20">
+              <img
+                className="mx-auto shadow-2xl"
+                src="https://i.ibb.co/tB24MCG/google.png"
+                alt=""
+              />
+            </button>
           </form>
         </div>
       </div>

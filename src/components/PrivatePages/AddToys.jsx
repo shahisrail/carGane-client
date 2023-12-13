@@ -30,7 +30,7 @@ const AddToys = () => {
       description: description,
       subcategory: selectedValue,
     };
-    fetch("http://localhost:5000/addToy", {
+    fetch("https://car-games-server.vercel.app/addToy", {
       method: "POST",
       headers: {
         "content-type": "application/json",
